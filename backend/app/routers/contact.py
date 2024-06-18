@@ -1,6 +1,4 @@
-from typing import Annotated
-from annotated_types import MinLen
-import boto3
+
 from fastapi import (
     Depends,
     File,
