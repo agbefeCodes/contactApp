@@ -21,15 +21,8 @@ import json
 # from .key_config import keys
 
 router = APIRouter(prefix="/contacts")
-# aws_access_key_id=AKIAQTVWYRBSB7ZO7IRL,
-# aws_secret_access_key=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,
 
-s3 = boto3.resource(
-    "s3",
-    aws_access_key_id="AKIAQTVWYRBSB7ZO7IRL",
-    aws_secret_access_key="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",
-)
-S3_BUCKET_NAME = "agbefebucket"
+
 
 
 @router.get("/", response_model=List[schemas.Contact])
@@ -59,13 +52,13 @@ async def create_contact(
     user_id: int = Depends(oauth.get_current_user),
     db: Session = Depends(get_db),
 ):
-    if file:
-        bucket = s3.Bucket(S3_BUCKET_NAME)
-        bucket.upload_fileobj(
-            file.file, file.filename, ExtraArgs={"ACL": "public-read"}
-        )
+    # if file:
+    #     bucket = s3.Bucket(S3_BUCKET_NAME)
+    #     bucket.upload_fileobj(
+    #         file.file, file.filename, ExtraArgs={"ACL": "public-read"}
+    #     )
 
-    img = f"https://{S3_BUCKET_NAME}.s3.eu-north-1.amazonaws.com/{file.filename}"
+    # img = f"https://{S3_BUCKET_NAME}.s3.eu-north-1.amazonaws.com/{file.filename}"
 
     contact = {
         "firstname": firstname,

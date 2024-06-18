@@ -5,30 +5,18 @@ from fastapi import HTTPException, status, Depends
 from sqlalchemy.orm import Session
 from passlib.hash import bcrypt
 
-from . import mailchimp as _mchimp
-
 from . import schemas
 from . import models, oauth
-import boto3
-import secrets, string
 
 
-# import mailchimp_marketing as MailchimpMarketing
-# from mailchimp_marketing.api_client import ApiClientError
+
+
 
 # COUNTRY  *************************
 
-s3 = boto3.client(
-    "s3",
-    aws_access_key_id="AKIAQTVWYRBSB7ZO7IRL",
-    aws_secret_access_key="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",
-)
-BUCKET_NAME = "agbefebucket"
 
 
-def generate_random_token(length=16):
-    characters = string.ascii_letters + string.digits
-    return "".join(secrets.choice(characters) for _ in range(length))
+
 
 
 def validate_url_token(token: str, db: Session):
@@ -274,12 +262,12 @@ def user_create(user, db: Session):
     db.commit()
     db.refresh(new_user_role)
 
-    hashedUserId = bcrypt.hash(str(new_user.id))
-    random_token = generate_random_token()
-    token = models.Tokens(token=random_token, user_id=new_user.id)
-    db.add(token)
-    db.commit()
-    db.refresh(token)
+    # hashedUserId = bcrypt.hash(str(new_user.id))
+    # random_token = generate_random_token()
+    # token = models.Tokens(token=random_token, user_id=new_user.id)
+    # db.add(token)
+    # db.commit()
+    # db.refresh(token)
     # link = f"http://localhost:5173/activation/{random_token}"
     # SEND EMAIL TO NEW USER....
     # _mchimp.add_user(user)
