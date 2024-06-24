@@ -68,7 +68,7 @@ body {
 }
 .navbar .meet-dev {
 	margin-left: 1rem;
-    cursor: pointer;
+	cursor: pointer;
 }
 .navbar .logo-container {
 	flex-basis: 40rem;
@@ -224,8 +224,11 @@ body {
 	margin-left: 5px;
 	font-weight: normal;
 	align-self: end;
+	color: #000000;
 }
-
+.list span {
+	color: #000000;
+}
 .list div {
 	display: flex;
 	align-items: start;
@@ -466,5 +469,35 @@ input::placeholder {
 	font-size: 18px;
 	text-align: center;
 	font-weight: 600;
+	cursor: pointer;
+}
+
+.delete-modal {
+	position: absolute;
+	width: 100vw;
+	height: 70vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: none;
+	backdrop-filter: blur(6px);
+	z-index: 10;
+}
+.delete-content {
+	display: flex;
+	flex-direction: column;
+	gap: 2rem;
+	align-items: center;
+	justify-content: center;
+	height: 10rem;
+	border: 1px solid black;
+	padding: 0 1rem;
+}
+
+.delete-content button {
+	font-size: 1.5rem;
+	padding: 0.2rem 0.4rem;
+	border-radius: 10px;
+	color: white;
 	cursor: pointer;
 }

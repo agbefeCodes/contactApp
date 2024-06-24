@@ -1,10 +1,9 @@
 const ContactDetails = ({
 	selectedContact,
 	setSelectedContact,
-	deleteContact,
-	setEditModal,
-	deleteModal,
-	setAction
+	setDeleteModal,
+	setAction,
+    setAddEditModal
 }) => {
 	// const { id, firstname, lastname, email, mobile, state, country, imgURL } =
 	// 	selectedContact;
@@ -23,7 +22,10 @@ const ContactDetails = ({
 						/>
 						<h2>
 							{selectedContact.firstname} {selectedContact.lastname}
-							<button className="btn-delete" onClick={() => deleteModal(true)}>
+							<button
+								className="btn-delete"
+								onClick={() => setDeleteModal(prev => !prev)}
+							>
 								X
 							</button>
 						</h2>
@@ -32,14 +34,13 @@ const ContactDetails = ({
 						<p>Country: {selectedContact?.country}</p>
 						<p>
 							<span>📱</span>
-							Mobile:{' '}
-							{selectedContact?.mobile ? selectedContact.mobile : '- -'}
+							Mobile: {selectedContact?.mobile ? selectedContact.mobile : '- -'}
 						</p>
 						<p>Email: {selectedContact?.email}</p>
 						<button
 							className="btn-summary"
 							onClick={() => {
-								setEditModal(prev => !prev);
+								setAddEditModal(prev => !prev);
 								setAction('Edit');
 							}}
 						>

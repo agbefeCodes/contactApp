@@ -9,6 +9,8 @@ import ContactDetails from './ContactDetails';
 import ContactsSummary from './ContactsSumarry';
 import SignupLogin from './signuplogin/SignupLogin';
 import AddEditModal from './AddEditModal';
+import DeleteModal from './DeleteModal';
+
 export {
 	NavBar,
 	Logo,
@@ -20,5 +22,6 @@ export {
 	ContactDetails,
 	ContactsSummary,
 	SignupLogin,
-	AddEditModal
+	AddEditModal,
+    DeleteModal
 };

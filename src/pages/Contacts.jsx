@@ -1,13 +1,12 @@
 import { useState, useContext, useEffect } from 'react';
-import { UserContacts } from '../components/context/UserContactsContext';
 import {
 	Main,
-	NavBar,
 	Box,
 	ContactList,
 	ContactDetails,
 	ContactsSummary,
-	AddEditModal
+	AddEditModal,
+	DeleteModal
 } from '../components/index';
 import img1 from './imgs/lee.jpg';
 
@@ -70,36 +69,108 @@ const list = [
 	}
 ];
 function Contacts() {
-	const { contactList } = useContext(UserContacts);
-	// console.log(contactList);
+	// const [contactList, token]= useContext(UserContacts);
+	// console.log(contactList , token);
+	const [contactList, setContactList] = useState([]);
 	const listEmpty =
 		contactList.length < 1 ? 'No Contacts Found' : 'Contacts Loaded';
+
 	const [selectedContact, setSelectedContact] = useState(null);
 	const [addEditModal, setAddEditModal] = useState(false);
 	const [action, setAction] = useState('Add');
 	const [listLength, setListLength] = useState(listEmpty);
-	const [token, setToken] = useState(localStorage.getItem('contactAppUserToken'));
-	// console.log('Token', token);
+	const [listChange, setListChange] = useState(false);
+	const [deleteModal, setDeleteModal] = useState(false);
+	const [token, setToken] = useState(
+		localStorage.getItem('contactAppUserToken')
+	);
+	// console.log(deleteModal);
+	const handleDeleteContact = async id => {
+		const requestOptions = {
+			method: 'DELETE',
+			headers: { Authorization: `Bearer ${token}` }
+		};
+		try {
+			await fetch(`http://localhost:8000/contacts/${id}`, requestOptions);
+			setSelectedContact(null);
+			setListChange(!listChange);
+			setDeleteModal(false);
+			alert('Contact Deleted Successfully');
+		} catch (error) {
+			alert(error);
+		}
+	};
+
+	useEffect(() => {
+		const GetList = async () => {
+			// console.log('Im here');
+			const requestOptions = {
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json',
+					Authorization: `Bearer ${token}`
+				}
+			};
+			try {
+				const response = await fetch(
+					'http://localhost:8000/contacts',
+					requestOptions
+				);
+				if (!response.ok) {
+					console.log(response);
+					setContactList([]);
+					// setToken(null);
+					// localStorage.setItem('contactAppUserToken', token);
+					throw new Error('Error Loading List');
+				}
+
+				const data = await response.json();
+				console.log(data, token);
+				setContactList(data);
+			} catch (error) {
+				console.log(error);
+			}
+		};
+		GetList();
+	}, [token, listChange]);
+
 	return (
 		<>
-			{/* <NavBar /> */}
-
 			<Main>
+				{deleteModal && (
+					<DeleteModal
+						setDeleteModal={setDeleteModal}
+						selectedContact={selectedContact}
+						handleDeleteContact={handleDeleteContact}
+					/>
+				)}
 				{addEditModal && (
-					<AddEditModal action={action} setAddEditModal={setAddEditModal} />
+					<AddEditModal
+						action={action}
+						setAddEditModal={setAddEditModal}
+						token={token}
+						setSelectedContact={setSelectedContact}
+					/>
 				)}
 				<Box listEmpty={listLength}>
 					<ContactList
-						contactList={list}
+						contactList={contactList}
 						setSelectedContact={setSelectedContact}
 					/>
 				</Box>
 				<Box>
-					<ContactsSummary setAddEditModal={setAddEditModal} />
+					<ContactsSummary
+						setAction={setAction}
+						setAddEditModal={setAddEditModal}
+					/>
 					{selectedContact && (
 						<ContactDetails
 							selectedContact={selectedContact}
 							setSelectedContact={setSelectedContact}
+							deleteContact={handleDeleteContact}
+							setDeleteModal={setDeleteModal}
+							setAddEditModal={setAddEditModal}
+							setAction={setAction}
 						/>
 					)}
 				</Box>

@@ -1,4 +1,4 @@
-const ContactsSummary = ({ contacts, setAddEditModal }) => {
+const ContactsSummary = ({ contacts, setAddEditModal , setAction}) => {
 	return (
 		<>
 			<div className="summary">
@@ -7,7 +7,9 @@ const ContactsSummary = ({ contacts, setAddEditModal }) => {
 					<p>Number of Contacts:{contacts?.length}</p>
 					<button
 						className="btn-summary"
-						onClick={() => setAddEditModal(prev => !prev)}
+						onClick={() => {
+                            setAction('Add')
+                            setAddEditModal(prev => !prev)}}
 					>
 						New Contact
 					</button>

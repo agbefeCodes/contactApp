@@ -7,6 +7,7 @@ export const GetContactsList = () => {
 	const [token, setToken] = useState(
 		localStorage.getItem('contactAppUserToken')
 	);
+	const [rerun, setRerun] = useState(localStorage.getItem('reRun'));
 	const [contactList, setContactList] = useState([]);
 	useEffect(() => {
 		const GetList = async () => {
@@ -25,15 +26,15 @@ export const GetContactsList = () => {
 				);
 				if (!response.ok) {
 					console.log(response);
-					setContactList([]);
-					setToken(null);
-					localStorage.setItem('contactAppUserToken', token);
+					// setContactList([]);
+					// setToken(null);
+					// localStorage.setItem('contactAppUserToken', token);
 					throw new Error('Error Loading List');
 				}
 
 				const data = await response.json();
-				console.log(data);
-				// setContactList(data);
+				console.log(data, token);
+				setContactList(data);
 			} catch (error) {
 				console.log(error);
 			}
@@ -42,7 +43,7 @@ export const GetContactsList = () => {
 	}, [token]);
 
 	return (
-		<UserContacts.Provider value={{ contactList }}>
+		<UserContacts.Provider value={[contactList, token]}>
 			<App />
 			{/* <Contacts /> */}
 		</UserContacts.Provider>

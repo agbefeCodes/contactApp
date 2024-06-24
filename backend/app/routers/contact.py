@@ -14,9 +14,9 @@ from .. import schemas
 from ..db import get_db
 from .. import crud
 from sqlalchemy.orm import Session
-import json
 
-# from .key_config import keys
+
+
 
 router = APIRouter(prefix="/contacts")
 
@@ -65,7 +65,7 @@ async def create_contact(
         "mobile": mobile,
         "stateId": stateId,
         "countryId": countryId,
-        "imgURL": img,
+        "imgURL": '',
         "imgName": file.filename,
     }
     return crud.create_contact(contact, user_id, db)

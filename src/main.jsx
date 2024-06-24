@@ -5,6 +5,8 @@ import Contacts from './pages/Contacts.jsx';
 import SignupLogin from './components/signuplogin/SignupLogin.jsx';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { GetContactsList } from './components/context/UserContactsContext.jsx';
+import DeleteModal from './components/DeleteModal.jsx';
+
 
 const router = createBrowserRouter([
 	{
@@ -14,6 +16,7 @@ const router = createBrowserRouter([
 				<App />
 			</GetContactsList>
 		)
+        // element: <DeleteModal/>
 	},
 	{
 		path: '/pages/contacts',

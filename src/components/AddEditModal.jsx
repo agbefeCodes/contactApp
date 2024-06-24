@@ -97,26 +97,30 @@ const AddEditModal = ({
 		e.preventDefault();
 
 		const formData = new FormData(e.currentTarget);
-		console.log(Object.fromEntries(formData));
 
 		const requestOptions = {
 			method: `${action === 'Add' ? 'POST' : 'PUT'}`,
 			headers: {
 				Authorization: `Bearer ${token}`
 			},
-			body: formData
+			body: JSON.stringify(newContact)
 		};
-		const response = await fetch(
-			`http://localhost:8000/${
-				action === 'Add' ? 'contacts' : `contacts/${selectedContact.id}`
-			}`,
-			requestOptions
-		);
-		console.log(response);
-		const data = await response.json();
-		setSelectedContact(null);
-		setListIsEmpty(false);
-		setListChange(!listChange);
+		try {
+			const response = await fetch(
+				`http://localhost:8000/${
+					action === 'Add' ? 'contacts' : `contacts/${selectedContact.id}`
+				}`,
+				requestOptions
+			);
+			console.log(response);
+			const data = await response.json();
+			console.log(data);
+			setSelectedContact(null);
+			setListIsEmpty(false);
+			setListChange(!listChange);
+		} catch (error) {
+			console.log(error);
+		}
 	};
 
 	const capitalize = str => {

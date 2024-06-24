@@ -1,13 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Logo } from './index';
 
-// const element = (
-// 	<FontAwesomeIcon
-// 		icon="fa-solid fa-address-book"
-// 		style={{ color: '#f07605' , fontSize:'30px'}}
-// 	/>
-// );
-
 function NavBar({
 	showSignUpLogin,
 	setShowSignUpLogin,
@@ -16,6 +9,18 @@ function NavBar({
 	loggedIn,
 	action
 }) {
+	const signOut = () => {
+		localStorage.setItem('contactAppUserToken', null);
+		setLoggedIn(prev => !prev);
+	};
+	const showLoginBox = () => {
+		setShowSignUpLogin(show => !show);
+		setAction('Login');
+	};
+	const showSignUpBox = () => {
+		setShowSignUpLogin(show => !show);
+		setAction('Sign-up');
+	};
 	return (
 		<div id="nav-container">
 			<div className="navbar">
@@ -29,35 +34,16 @@ function NavBar({
 							</li>
 						)}
 						{!showSignUpLogin && (
-							<li
-								onClick={() => {
-									setShowSignUpLogin(show => !show);
-									setAction('Login');
-								}}
-							>
-								{!loggedIn && 'login'}
-							</li>
+							<li onClick={showLoginBox}>{!loggedIn && 'login'}</li>
 						)}
 					</ul>
 					{!loggedIn && (
-						<button
-							className="sign-up-btn"
-							onClick={() => {
-								setShowSignUpLogin(show => !show);
-								setAction('Sign-up');
-							}}
-						>
+						<button className="sign-up-btn" onClick={showSignUpBox}>
 							Create Account
 						</button>
 					)}
 					{loggedIn && (
-						<span
-							className="meet-dev"
-							onClick={() => {
-								localStorage.setItem('contactAppUserToken', null);
-								setLoggedIn(prev => !prev);
-							}}
-						>
+						<span className="meet-dev" onClick={signOut}>
 							sign-out
 						</span>
 					)}
