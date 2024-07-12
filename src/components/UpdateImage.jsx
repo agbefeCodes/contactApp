@@ -3,7 +3,7 @@ import React from 'react';
 const UpdateImage = ({
 	setShowImgForm,
 	setListChange,
-	setSelectedContact,
+	// setSelectedContact,
 	selectedContact
 }) => {
 	const updateImage = async e => {

@@ -24,7 +24,7 @@ body {
 	align-items: center;
 	position: sticky;
 	top: 0;
-	z-index: 100;
+	z-index: 1;
 	background: linear-gradient(var(--primary-main-dark) 0%, #ffffff 100%);
 	height: 5rem;
 	/* margin-bottom: 4rem; */
@@ -63,6 +63,8 @@ body {
 .navbar .logo {
 	display: flex;
 	align-items: center;
+    cursor: pointer;
+    /* background-color: red; */
 }
 .navbar .logo-txt {
 	font-size: 1.7rem;
@@ -78,7 +80,6 @@ body {
 	justify-content: flex-start;
 	align-items: center;
 	gap: 0.5rem;
-	/* background-color: red; */
 }
 .navbar .user-welcome {
 	margin-left: 10rem;
@@ -169,7 +170,7 @@ body {
 }
 .top-gradient {
 	position: absolute;
-	z-index: 1;
+	/* z-index: 1; */
 	width: 100%;
 	height: 50px;
 	background: rgb(236, 136, 4);
@@ -309,7 +310,7 @@ body {
 	font-size: 1rem;
 	font-weight: bold;
 	cursor: pointer;
-	z-index: 1;
+	/* z-index: 1; */
 }
 .btn-back {
 	padding: 0.5rem;
@@ -374,9 +375,7 @@ body {
 	/* border: 2px solid green; */
 	margin: auto;
 }
-.hidden-imgName {
-	/* display: none; */
-}
+
 .btn {
 	border: none;
 	padding: 0.5rem;
@@ -392,6 +391,7 @@ body {
 	z-index: 99;
 	background-color: rgba(255, 255, 255, 0.45);
 	backdrop-filter: blur(2px);
+    z-index: 10;
 }
 .contact-data {
 	height: 100%;
@@ -406,9 +406,10 @@ body {
 	flex-direction: column;
 	justify-content: start;
 	align-items: center;
-	background-color: #fff;
-	box-shadow: 0 2px 20px rgba(77, 76, 76, 0.424);
-	border-radius: 5px;
+	background-color: #ffffff;
+	/* box-shadow: 0 2px 20px rgba(77, 76, 76, 0.424); */
+    border: 1px solid;
+	border-radius: 3px;
 
 	padding: 1rem 0;
 }
@@ -550,6 +551,7 @@ input::placeholder {
 
 .img-update-overlay {
 	position: absolute;
+    top: -80px;
 	width: 100vw;
 	height: 70vh;
 	display: flex;
@@ -558,6 +560,7 @@ input::placeholder {
 	background-color: none;
 	backdrop-filter: blur(1px);
 	z-index: 10;
+   
 
 	display: flex;
 	justify-content: center;
@@ -565,7 +568,7 @@ input::placeholder {
 }
 .img-update-container {
 	background-color: #ffffffe6;
-	border: 2px solid black;
+	border: 1px solid black;
 	padding: 1rem;
 	display: flex;
 	flex-direction: column;

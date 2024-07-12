@@ -10,7 +10,9 @@ function NavBar({
 	setQuery,
 	query,
 	signOut,
-	user
+	user,
+    setToHome,
+    setLoadingShowCase
 }) {
 	const showLoginBox = () => {
 		setShowSignUpLogin(show => !show);
@@ -23,14 +25,14 @@ function NavBar({
 	return (
 		<div id="nav-container">
 			<div className="navbar">
-				<Logo setLoggedIn={setLoggedIn} />
+				<Logo setLoggedIn={setLoggedIn} setToHome={setToHome} setLoadingShowCase={setLoadingShowCase}/>
 				{loggedIn && <Search setQuery={setQuery} query={query} />}
 				<div className="list-links">
 					{/* <div className="dev-box"></div> */}
 					<ul>
 						{loggedIn && (
-							<li onClick={() => setLoggedIn(true)}>
-								<Link to={'/pages/contacts'}>contacts</Link>
+							<li onClick={() => setToHome(false)}>
+								contacts
 							</li>
 						)}
 						{!showSignUpLogin && (

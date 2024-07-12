@@ -1,4 +1,4 @@
-import { NavBar, ShowCase, Main } from './components/index';
+import { NavBar, ShowCase, Main, Loading } from './components/index';
 import './App.css';
 import Contacts from './pages/Contacts';
 import { useEffect, useState } from 'react';
@@ -11,8 +11,10 @@ function App() {
 		localStorage.getItem('contactAppUserToken')
 	);
 	const [loggedIn, setLoggedIn] = useState(false);
+	const [toHome, setToHome] = useState(false);
 	const [query, setQuery] = useState('');
 	const [countryId, setCountryId] = useState(1);
+	const [loadingShowCase, setLoadingShowCase] = useState(toHome);
 	useEffect(() => {
 		localStorage.setItem('contactAppUserToken', null);
 	}, []);
@@ -35,9 +37,11 @@ function App() {
 				query={query}
 				signOut={signOut}
 				user={user}
+				setToHome={setToHome}
+                setLoadingShowCase={setLoadingShowCase}
 			/>
 			<Main>
-				{loggedIn ? (
+				{loggedIn && !toHome ? (
 					<Contacts
 						query={query}
 						signOut={signOut}
@@ -45,15 +49,21 @@ function App() {
 						setCountryId={setCountryId}
 					/>
 				) : (
-					<ShowCase
-						showSignUpLogin={showSignUpLogin}
-						setShowSignUpLogin={setShowSignUpLogin}
-						action={action}
-						setAction={setAction}
-						setUser={setUser}
-						setToken={setToken}
-						setLoggedIn={setLoggedIn}
-					/>
+					<div>
+						{loadingShowCase ? (
+							<Loading />
+						) : (
+							<ShowCase
+								showSignUpLogin={showSignUpLogin}
+								setShowSignUpLogin={setShowSignUpLogin}
+								action={action}
+								setAction={setAction}
+								setUser={setUser}
+								setToken={setToken}
+								setLoggedIn={setLoggedIn}
+							/>
+						)}
+					</div>
 				)}
 			</Main>
 		</>

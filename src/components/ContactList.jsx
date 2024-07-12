@@ -13,7 +13,7 @@ const ContactList = ({
 			.at(0);
 		const cleanUp = setTimeout(() => {
 			setSelectedContact(contact);
-		}, 1000);
+		}, 500);
 		return () => clearTimeout(cleanUp);
 	}, [contactList, selectedContact?.id, setSelectedContact]);
 
